@@ -3,7 +3,7 @@ const params = new URLSearchParams(window.location.search);
 const token = params.get('token');
 const username = params.get('user');
 
-const socket = io('ws://177.235.191.39:3535', {
+const socket = io('ws://localhost:3535', {
   transports: ['websocket']
 });
 
@@ -20,13 +20,13 @@ socket.on('connect', () => {
 // Evento de erro de sessão
 socket.on('session_error', (err) => {
   console.error('Erro:', err.message);
-  window.location.href = `http://177.235.191.39:5500/front-end/views/home.html`;
+  window.location.href = `http://localhost:5500/front-end/views/home.html`;
 });
 
 // Desconexão do WebSocket
 socket.on('disconnect', () => {
   console.log('Desconectado do servidor');
-  window.location.href = `http://177.235.191.39:5500/front-end/views/home.html`;
+  window.location.href = `http://localhost:5500/front-end/views/home.html`;
 });
 
 socket.on('session_users', (data) => {
@@ -59,5 +59,5 @@ document.getElementById('Start_lobby').addEventListener('submit', (event) => {
 
 // Mudança: Redireciona para like.html assim que a sessão for iniciada
 socket.on('redirect_to_like', () => {
-  window.location.href = `http://177.235.191.39:5500/front-end/views/like.html?token=${token}&user=${username}`;
+  window.location.href = `http://localhost:5500/front-end/views/like.html?token=${token}&user=${username}`;
 });

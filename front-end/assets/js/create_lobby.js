@@ -11,7 +11,7 @@ document.getElementById('create_lobby').addEventListener('submit', async functio
     const encodedUser = encodeURIComponent(user);
   
     try {
-      const response = await fetch(`http://177.235.191.39:3535/get_session?user=${encodedUser}`, {
+      const response = await fetch(`http://localhost:3535/get_session?user=${encodedUser}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ document.getElementById('create_lobby').addEventListener('submit', async functio
       if (response.ok) {
         const responseData = await response.json();
         const encodedToken = encodeURIComponent(responseData.session_token);
-        window.location.href = `http://177.235.191.39:5500/front-end/views/lobby.html?token=${encodedToken}&user=${encodedUser}`;
+        window.location.href = `http://localhost:5500/front-end/views/lobby.html?token=${encodedToken}&user=${encodedUser}`;
       } else {
         const errorData = await response.json();
         alert('Erro ao entrar na sessão: ' + errorData.message);

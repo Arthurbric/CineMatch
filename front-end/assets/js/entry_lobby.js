@@ -12,7 +12,7 @@ document.getElementById('entry_lobby').addEventListener('submit', async function
   const data = { user: user, token: token };
 
   try {
-    const response = await fetch('http://177.235.191.39:3535/post_session', {
+    const response = await fetch('http://localhost:3535/post_session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ document.getElementById('entry_lobby').addEventListener('submit', async function
       // Redireciona diretamente com os dados fornecidos
       const encodedUser = encodeURIComponent(user);
       const encodedToken = encodeURIComponent(token);
-      window.location.href = `http://177.235.191.39:5500/front-end/views/lobby.html?token=${encodedToken}&user=${encodedUser}`;
+      window.location.href = `http://localhost:5500/front-end/views/lobby.html?token=${encodedToken}&user=${encodedUser}`;
     } else {
       const errorData = await response.json();
       alert('Erro ao entrar na sessão: ' + errorData.message);

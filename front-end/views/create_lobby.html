@@ -4,20 +4,91 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/lobby.css">
-    <title>CineMatch</title>
+    <title>CineMatch - Criar Sessão</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        html {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Gradiente animado como fundo */
+            background: linear-gradient(135deg, #d4aFF7, #f3c2e0, #a8b5f0); /* Tons de lilás, rosa suave e azul lavanda */
+            background-size: 400% 400%; /* Importante para a animação cobrir mais área */
+            animation: gradientAnimation 18s ease infinite; /* Duração, tipo de animação e repetição */
+        }
+        body{
+            border-radius: 22px; /* Bordas mais arredondadas */
+        }
+
+        /* Animação do gradiente */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 420px; /* Largura máxima do formulário */
+            padding: 35px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco levemente transparente */
+            border-radius: 22px; /* Bordas mais arredondadas */
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15); /* Sombra um pouco mais pronunciada */
+        }
+        .logo-img {
+            max-height: 60px;
+            margin-bottom: 25px;
+        }
+        .form-container h1 {
+            font-weight: 700;
+            color: #3c325c; /* Um tom de roxo escuro para o título */
+            margin-bottom: 30px;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+        }
+        .form-control:focus {
+            border-color: #8A2BE2; /* Roxo mais vibrante no foco */
+            box-shadow: 0 0 0 0.25rem rgba(138, 43, 226, 0.25);
+        }
+        .btn-criar { /* Classe específica para o botão de criar */
+            padding: 12px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            background-color: #8A2BE2; /* Cor roxa (BlueViolet) para o botão */
+            border-color: #8A2BE2;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-criar:hover {
+            background-color: #7324bf; /* Roxo um pouco mais escuro no hover */
+            border-color: #7324bf;
+        }
+    </style>
 </head>
 <body>
-    <form id="create_lobby" autocomplete="off">
-        <div class="container">
-            <img src="../assets/img/heart_home.svg" alt="Logo Coração">
-            <h1>Entrar na sessão</h1>
-            <input type="text" placeholder="Nick" id="name" name="name" required maxlength="30">
-            <button type="submit">Entrar na sessão</button>
-        </div>
-    </form>
+    <div class="form-container text-center">
+        <img src="../assets/img/heart_home.svg" alt="Logo Coração CineMatch" class="logo-img">
+        <h1>Criar Nova Sessão</h1> 
+        <form id="create_lobby" autocomplete="off">
+            <div class="mb-4"> 
+                <label for="name" class="form-label visually-hidden">Seu Nick</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Digite seu Nome ;)" id="name" name="name" required maxlength="30">
+            </div>
+            <button type="submit" class="btn btn-primary w-100 btn-criar">Criar Sessão</button> 
+        </form>
+    </div>
 
-    <!-- Importa o JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../assets/js/create_lobby.js"></script>
 </body>
 </html>

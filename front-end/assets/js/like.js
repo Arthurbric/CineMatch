@@ -9,7 +9,7 @@ let movie_ids = [];
 let list_movies = null;
 
 // Cria a conexão WebSocket
-const socket = io('ws://177.235.191.39:3535', {
+const socket = io('ws://localhost:3535', {
   transports: ['websocket']
 });
 
@@ -40,7 +40,7 @@ socket.on('movie_ids_and_qtdusers', (movie, numUsers)=>{
 socket.on('session_error', (err) => {
   console.error('Erro:', err.message);
   alert('Você não tem permissão para acessar essa sessão.');
-  window.location.href = 'http://177.235.191.39:5500/front-end/views/home.html'; // Redireciona para entry_lobby
+  window.location.href = 'http://localhost:5500/front-end/views/home.html'; // Redireciona para entry_lobby
 });
 
 //função calcula match
@@ -56,7 +56,7 @@ async function calcPercent(movie, qtdusers) {
     // Verifica se já atingiu ou passou a porcentagem mínima
     if (counts[num] >= porcentagem) {
       console.log(counts[num], porcentagem)
-      window.location.href = `http://177.235.191.39:5500/front-end/views/match.html?movie_id=${num}`;
+      window.location.href = `http://localhost:5500/front-end/views/match.html?movie_id=${num}`;
     }
   });
 }
@@ -90,9 +90,9 @@ async function carregarFilme() {
     let resposta;
 
     if (list_gener == null) {
-      resposta = await fetch('http://177.235.191.39:3535/movie');
+      resposta = await fetch('http://localhost:3535/movie');
     } else {
-      let api_url = 'http://177.235.191.39:3535/movie?genre=' + list_gener.join(',');
+      let api_url = 'http://localhost:3535/movie?genre=' + list_gener.join(',');
       if (list_dislike_gener != null) {
         api_url += `&exclude_genre=${list_dislike_gener.join(',')}`;
       }

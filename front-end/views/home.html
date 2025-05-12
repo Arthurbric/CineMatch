@@ -1,61 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineMatch - Recomendações de Filmes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Estilos personalizados opcionais */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa; /* Cor de fundo suave */
+            background-color: #f8f9fa;
+            /* Cor de fundo suave */
         }
+
         .navbar-brand img {
-            max-height: 40px; /* Ajuste o tamanho do logo conforme necessário */
+            max-height: 40px;
+            /* Ajuste o tamanho do logo conforme necessário */
         }
+
         .hero-section {
             padding: 60px 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(240,240,240,0.9)), url('your-optional-background-image.jpg'); /* Exemplo com gradiente e imagem de fundo opcional */
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9)), url('your-optional-background-image.jpg');
+            /* Exemplo com gradiente e imagem de fundo opcional */
             background-size: cover;
             background-position: center;
         }
+
         .hero-section h1 {
             font-weight: 700;
             color: #343a40;
         }
+
         .hero-section h6 {
             color: #5a6268;
             margin-bottom: 30px;
         }
+
         .action-buttons .btn {
             margin: 10px;
             padding: 12px 25px;
             font-size: 1.1rem;
-            min-width: 220px; /* Garante que os botões tenham uma largura mínima */
+            min-width: 220px;
+            /* Garante que os botões tenham uma largura mínima */
         }
+
         .features-section {
             padding: 60px 0;
             background-color: #ffffff;
         }
+
         .feature-item {
             padding: 20px;
-            margin-bottom: 20px; /* Espaçamento entre itens em telas menores */
+            margin-bottom: 20px;
+            /* Espaçamento entre itens em telas menores */
         }
+
         .feature-item i {
-            font-size: 2.5rem; /* Tamanho dos ícones */
+            font-size: 2.5rem;
+            /* Tamanho dos ícones */
             margin-bottom: 15px;
-            color: #0d6efd; /* Cor primária do Bootstrap para ícones */
+            color: #0d6efd;
+            /* Cor primária do Bootstrap para ícones */
         }
+
         .feature-item p {
             font-size: 1.1rem;
             color: #495057;
         }
+
         .tickets-img {
             max-width: 100%;
             height: auto;
-            border-radius: 8px; /* Bordas arredondadas para a imagem */
+            border-radius: 8px;
+            /* Bordas arredondadas para a imagem */
         }
 
         /* Footer simples (opcional) */
@@ -68,6 +90,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
@@ -76,10 +99,11 @@
                 <img src="../assets/img/heart_home.svg" alt="Logo CineMatch">
                 <span class="ms-2 fw-bold">CineMatch</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            </div>
+        </div>
     </nav>
 
     <header class="hero-section text-center">
@@ -87,17 +111,37 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-8">
                     <h1 class="display-4 mb-3">O site de recomendações de filmes</h1>
-                    <h6 class="lead mb-4">O CineMatch te ajuda a escolher um filme de forma rápida se baseando no seu gosto e dos seus amigos.</h6>
+                    <h6 class="lead mb-4">O CineMatch te ajuda a escolher um filme de forma rápida se baseando no seu
+                        gosto e dos seus amigos.</h6>
                 </div>
             </div>
             <div class="row align-items-center justify-content-center mt-4">
                 <div class="col-md-5 col-lg-4 mb-4 mb-md-0 text-center">
-                    <img class="tickets-img shadow" src="../assets/img/movie_tickets_home.svg" alt="Ingressos de cinema">
+                    
+
+                    <!--
+                    
+                    -->
+                    <img class="tickets-img shadow" src="../assets/img/ticket2.jpg" width=50%"
+                        alt="Ingressos de cinema">
+                    <!--
+                    <div class="col-md-5 col-lg-4 mb-4 mb-md-0 text-center">
+                        <div class="row g-3">
+                            <div class="col-6 col-md-12 mb-3 mb-md-0"> 
+                                <img class="tickets-img shadow" src="../assets/img/movie_tickets_home.svg" src="../assets/img/ticket2.jpg"
+                        alt="Ingressos de cinema">
+                            </div>
+                            
+                        </div>
+                    </div>
+                    -->
                 </div>
                 <div class="col-md-7 col-lg-6 action-buttons text-center text-md-start">
                     <div class="d-grid gap-2 d-md-block">
-                        <a href="http://localhost:5500/front-end/views/create_lobby.html" class="btn btn-primary btn-lg shadow-sm">Criar uma sessão</a>
-                        <a href="http://localhost:5500/front-end/views/entry_lobby.html" class="btn btn-outline-primary btn-lg shadow-sm">Entrar em uma sessão</a>
+                        <a href="http://localhost:5500/front-end/views/create_lobby.html"
+                            class="btn btn-primary btn-lg shadow-sm">Criar uma sessão</a>
+                        <a href="http://localhost:5500/front-end/views/entry_lobby.html"
+                            class="btn btn-outline-primary btn-lg shadow-sm">Entrar em uma sessão</a>
                     </div>
                 </div>
             </div>
@@ -130,7 +174,9 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>

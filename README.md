@@ -94,6 +94,7 @@ Este projeto não se foca em estética, e sim em **características técnicas de
 
 Se você quiser contribuir, ajudar no projeto, ou participar de alguma parte técnica, fale com a gente! 💬  
 Sugestões e ideias são bem-vindas! 🙌
+- guilhermehzf@sempreceub.com
 - arthurarash.bric@gmail.com
 
 ---

@@ -166,5 +166,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, '0.0.0.0', () => {
-  console.log(`Servidor da API rodando em http://177.235.191.39:${port}`);
+  console.log(`Servidor da API rodando em http://localhost:${port}`);
 });

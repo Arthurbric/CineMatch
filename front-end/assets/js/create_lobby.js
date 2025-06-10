@@ -21,7 +21,7 @@ document.getElementById('create_lobby').addEventListener('submit', async functio
       if (response.ok) {
         const responseData = await response.json();
         const encodedToken = encodeURIComponent(responseData.session_token);
-        window.location.href = `http://localhost:5500/front-end/views/lobby.html?token=${encodedToken}&user=${encodedUser}`;
+        window.location.href = `http://cinematch.ghzds.com.br:5500/front-end/views/lobby.html?token=${encodedToken}&user=${encodedUser}`;
       } else {
         const errorData = await response.json();
         alert('Erro ao entrar na sessão: ' + errorData.message);

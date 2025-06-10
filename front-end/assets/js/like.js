@@ -9,10 +9,10 @@ let movie_ids = [];
 let list_movies = null;
 
 // Cria a conexão WebSocket
-const socket = io("/api", {
+const socket = io("/", {
+  path: "/socket.io",
   transports: ["websocket"],
 });
-
 socket.on('connect', () => {
   console.log('Conectado:', socket.id);
   // Envia os dados da sessão e usuário

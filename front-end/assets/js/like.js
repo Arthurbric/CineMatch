@@ -40,7 +40,7 @@ socket.on('movie_ids_and_qtdusers', (movie, numUsers)=>{
 socket.on('session_error', (err) => {
   console.error('Erro:', err.message);
   alert('Você não tem permissão para acessar essa sessão.');
-  window.location.href = 'http://localhost:5500/front-end/views/home.html'; // Redireciona para entry_lobby
+  window.location.href = 'http://cinematch.ghzds.com.br:8080/'; // Redireciona para entry_lobby
 });
 
 //função calcula match
@@ -56,7 +56,7 @@ async function calcPercent(movie, qtdusers) {
     // Verifica se já atingiu ou passou a porcentagem mínima
     if (counts[num] >= porcentagem) {
       console.log(counts[num], porcentagem)
-      window.location.href = `http://localhost:5500/front-end/views/match.html?movie_id=${num}`;
+      window.location.href = `http://cinematch.ghzds.com.br:8080/match?movie_id=${num}`;
     }
   });
 }

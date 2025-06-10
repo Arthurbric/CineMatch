@@ -27,7 +27,7 @@ socket.on('connect', () => {
   } else {
     console.error('Token ou usuário não encontrado na URL. Redirecionando para home.');
     // alert('Erro: Token da sessão ou nome de usuário ausente. Você será redirecionado.');
-    window.location.href = `http://localhost:5500/front-end/views/home.html`;
+    window.location.href = `http://cinematch.ghzds.com.br:8080/`;
   }
 });
 
@@ -35,7 +35,7 @@ socket.on('connect', () => {
 socket.on('session_error', (err) => {
   console.error('Erro de sessão do servidor:', err.message);
   alert('Erro na sessão: ' + (err.message || 'Ocorreu um problema.'));
-  window.location.href = `http://localhost:5500/front-end/views/home.html`;
+  window.location.href = `http://cinematch.ghzds.com.br:8080/`;
 });
 
 // Desconexão do WebSocket
@@ -152,7 +152,7 @@ if (startLobbyForm) {
 socket.on('redirect_to_like', () => {
   console.log('Recebido evento redirect_to_like. Redirecionando...');
   if (tokenFromUrl && usernameFromUrl) {
-    window.location.href = `http://localhost:5500/front-end/views/like.html?token=${tokenFromUrl}&user=${usernameFromUrl}`;
+    window.location.href = `http://cinematch.ghzds.com.br:8080/like?token=${tokenFromUrl}&user=${usernameFromUrl}`;
   } else {
     console.error('Não é possível redirecionar para like.html: token ou usuário ausente.');
     // Redirecionar para home em caso de erro para não ficar preso no lobby

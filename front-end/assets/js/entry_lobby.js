@@ -24,7 +24,7 @@ document.getElementById('entry_lobby').addEventListener('submit', async function
       // Redireciona diretamente com os dados fornecidos
       const encodedUser = encodeURIComponent(user);
       const encodedToken = encodeURIComponent(token);
-      window.location.href = `http://localhost:5500/front-end/views/lobby.html?token=${encodedToken}&user=${encodedUser}`;
+      window.location.href = `http://cinematch.ghzds.com.br:8080/lobby?token=${encodedToken}&user=${encodedUser}`;
     } else {
       const errorData = await response.json();
       alert('Erro ao entrar na sessão: ' + errorData.message);

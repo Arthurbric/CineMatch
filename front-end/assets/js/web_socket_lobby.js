@@ -75,8 +75,10 @@ socket.on('session_users', (data) => {
 
       const deleteButton = document.createElement('button');
       deleteButton.className = 'btn btn-sm delete-user-btn'; // Estilo definido no HTML/CSS
-      deleteButton.setAttribute('aria-label', `Remover ${user}`);
-      //deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Ícone de lixeira do Font Awesome
+      if(index !== 0){
+        deleteButton.setAttribute('aria-label', `Remover ${user}`);
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Ícone de lixeira do Font Awesome
+      }
       
       // Adiciona um atributo de dados para identificar o usuário ao clicar
       deleteButton.dataset.username = user;
@@ -88,14 +90,13 @@ socket.on('session_users', (data) => {
         const userToRemove = this.dataset.username;
         
         // Exemplo de como você poderia pedir confirmação e emitir o evento
-        // if (confirm(`Tem certeza que deseja remover "${userToRemove}" da sessão?`)) {
-        //   socket.emit('request_remove_user', { 
-        //     token: tokenFromUrl, 
-        //     usernameToRemove: userToRemove 
-        //   });
-        //   console.log(`Solicitação para remover "${userToRemove}" enviada.`);
-        // }
-        alert(`FUNCIONALIDADE DE REMOVER "${userToRemove}" AINDA NÃO IMPLEMENTADA NO CLIENTE/SERVIDOR.`);
+         if (confirm(`Tem certeza que deseja remover "${userToRemove}" da sessão?`)) {
+           socket.emit('request_remove_user', { 
+             token: tokenFromUrl, 
+             usernameToRemove: userToRemove 
+           });
+           console.log(`Solicitação para remover "${userToRemove}" enviada.`);
+         }
       };
 
       // Aplica estilo especial para o primeiro usuário (considerado o host)

@@ -206,7 +206,8 @@ router.get('/movie_match', async (req, res) => {
 function getStreamingLinksFromPython(movie_id) {
   return new Promise((resolve, reject) => {
     const path = `"${process.env.path_get_providers_link}"`;
-    exec(`python3 ${path} ${movie_id}`, (err, stdout, stderr) => {
+    const python_path = `"${process.env.python_path}"`;
+    exec(`${python_path} ${path} ${movie_id}`, (err, stdout, stderr) => {
       if (err) {
         reject(`Erro ao executar o script Python: ${stderr}`);
         return;
@@ -216,7 +217,7 @@ function getStreamingLinksFromPython(movie_id) {
         const data = JSON.parse(stdout);
         resolve(data);
       } catch (e) {
-        reject('Erro ao processar a resposta do script Python.');
+        reject("Erro ao processar a resposta do script Python.");
       }
     });
   });

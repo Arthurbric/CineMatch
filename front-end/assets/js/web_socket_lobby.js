@@ -10,7 +10,7 @@ const userListUL = document.getElementById('user-list'); // Referência direta a
 const startLobbyForm = document.getElementById('Start_lobby');
 
 // Conecta ao servidor WebSocket
-const socket = io('ws://localhost:3535', {
+const socket = io('/api', {
   transports: ['websocket'] // Força o uso de WebSockets
 });
 

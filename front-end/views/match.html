@@ -1,30 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR"> 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="../assets/css/match.css" />
-	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-	<script src="https://kit.fontawesome.com/5394ea2044.js" crossorigin="anonymous"></script>
-	<title>Tinder</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/match.css" /> <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/5394ea2044.js" crossorigin="anonymous"></script>
+    <title>Tinder</title>
+    <style>
+        /* Estilos personalizados para o modal "Deu Match!" com tema rosa vibrante */
+        #matchPartyModal .modal-content {
+            background-color: #4A004A; /* Um roxo escuro para destacar os rosas e dourados */
+            color: #FFFFFF;
+            border-radius: 20px; /* Bordas mais arredondadas */
+            border: 4px solid #FF69B4; /* Hot Pink mais grosso */
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.7); /* Sombra rosa mais pronunciada */
+        }
+
+        #matchPartyModal .modal-header {
+            background-color: #FF1493; /* Deep Pink vibrante */
+            color: #FFFFFF;
+            border-bottom: 3px solid #FFD700; /* Dourado */
+            border-top-left-radius: 15px; /* Ajuste para o border-radius do modal-content */
+            border-top-right-radius: 15px; /* Ajuste */
+        }
+
+        #matchPartyModal .modal-title {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.8em; /* Título maior */
+            text-shadow: 1px 1px 2px #000000; /* Sombra leve no texto do título */
+        }
+
+        #matchPartyModal .modal-body {
+            text-align: center;
+            padding: 25px;
+        }
+
+        #matchPartyModal .match-message {
+            font-size: 2em; /* Mensagem principal maior */
+            font-weight: bold;
+            color: #FFB6C1; /* Light Pink para a mensagem principal */
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px #8B008B; /* Sombra magenta escura */
+        }
+
+        #matchPartyModal .match-gif {
+            max-width: 280px; /* GIF um pouco maior */
+            border-radius: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 4px solid #FFD700; /* Borda dourada no GIF */
+            box-shadow: 0 0 25px #FFD700; /* Brilho dourado */
+        }
+
+        #matchPartyModal .celebrate-text {
+            font-size: 1.2em;
+            color: #F0E68C; /* Khaki (amarelo claro) para o texto de celebração */
+        }
+
+        #matchPartyModal .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%); /* Botão de fechar branco (X) */
+            transform: scale(1.2); /* Deixar o X um pouco maior */
+        }
+
+        #matchPartyModal .btn-party-close {
+            background: linear-gradient(45deg, #FF69B4, #FF1493); /* Gradiente rosa */
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.2em;
+            border: 2px solid #FFD700; /* Borda dourada */
+            padding: 10px 25px;
+            border-radius: 50px; /* Botão bem arredondado */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+
+        #matchPartyModal .btn-party-close:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #FFD700; /* Brilho dourado no hover */
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
-	<!-- TELA DE LOADING -->
-	<div id="loading">
-		<div class="loader"></div>
-	</div>
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
 
-	<!-- TELA DE ERRO (caso falhe o fetch) -->
-	<div id="erro" style="display: none; text-align: center; margin-top: 2rem;">
-		<h2>Erro ao carregar o filme.</h2>
-	</div>
+    <div id="erro" style="display: none; text-align: center; margin-top: 2rem;">
+        <h2>Erro ao carregar o filme.</h2>
+    </div>
 
-	<!-- CONTEÚDO PRINCIPAL -->
-	<div id="conteudo" style="display: none;">
-		<nav class="navbar">
-			<img src="../assets/img/heart_home.svg" alt="logo" />
-		</nav>
+    <div id="conteudo" style="display: none;">
+        <nav class="navbar">
+            <img src="../assets/img/heart_home.svg" alt="logo" />
+        </nav>
         <div class="photo-and-actions">
             <div class="photo">
                 <img src="" alt="foto" class="photo-img" />
@@ -44,14 +115,59 @@
                 </div>
             </div>
 
-            <!-- MOVEI AQUI PARA FORA DO .photo -->
             <div class="div_providers">
                 <h3 class="provedores">Provedores:</h3>
                 <div class="providers-container"></div>
-            </div>        
+            </div>
         </div>
-	</div>
+    </div>
 
-	<script src="../assets/js/match.js"></script>
+    <div class="modal fade" id="matchPartyModal" tabindex="-1" aria-labelledby="matchPartyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="matchPartyModalLabel">💖🎉 Deu Match! 🎉💖</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="match-message">Parabéns! Vocês combinaram!</p>
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHRybXFxOWtrcjQ3aGNiczdrOWNsZmQ4NndjbnJhYmN3Y3pkeXU3aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26BkNItrjPoIhB4Bi/giphy.gif" alt="Deu Match! GIF de festa e corações" class="match-gif img-fluid" / >
+                    <!-- img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDlxdWVrNHlnZHR5NWZhbnBoMXJiMG5kM3EzOWEzODJ5MGN0dzV0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xTiTnEHBh7qapyuvwQ/giphy.gif" alt="Deu Match! GIF de festa e corações" class="match-gif img-fluid" / -->
+                    <p class="celebrate-text">Que comece a celebração!</p>
+                </div>
+                <div class="modal-footer justify-content-center"> 
+                    <button type="button" class="btn btn-party-close" data-bs-dismiss="modal">Que Demais!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/match.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Espera o DOM estar completamente carregado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Pega o elemento do modal
+            var matchModalElement = document.getElementById('matchPartyModal');
+            if (matchModalElement) {
+                // Cria uma nova instância do modal Bootstrap
+                var matchPartyModal = new bootstrap.Modal(matchModalElement);
+                // Mostra o modal
+                matchPartyModal.show();
+            }
+
+            // Simulação para esconder loading e mostrar conteúdo (adapte à sua lógica)
+            var loadingDiv = document.getElementById('loading');
+            var conteudoDiv = document.getElementById('conteudo');
+            // var erroDiv = document.getElementById('erro');
+
+            setTimeout(function() {
+                if (loadingDiv) loadingDiv.style.display = 'none';
+                if (conteudoDiv) conteudoDiv.style.display = 'block';
+            }, 500); // Pequeno delay para o modal aparecer primeiro de forma impactante
+        });
+    </script>
 </body>
 </html>

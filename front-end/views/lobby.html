@@ -4,24 +4,147 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/lobby.css">
-    <title>CineMatch</title>
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    
+    <title>CineMatch - Lobby da Sessão</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body, html { /* Adicionado html para garantir altura total com body */
+            height: 100%;
+            margin: 0; /* Garante que não haja margens padrão */
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d4aFF7, #f3c2e0, #a8b5f0, #f7b7d7);
+            background-size: 400% 400%;
+            animation: gradientAnimation 18s ease infinite;
+            padding: 20px;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .lobby-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.92);
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        .logo-img {
+            max-height: 50px;
+            margin-bottom: 20px;
+        }
+        .lobby-container h1 {
+            font-weight: 700;
+            color: #3c325c;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .session-code-display {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #8A2BE2;
+            background-color: #f0e8f9;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 5px;
+            margin-bottom: 25px;
+            display: inline-block;
+            border: 1px dashed #c3a0e0;
+            letter-spacing: 2px;
+            min-height: 60px; /* Para manter o espaço mesmo se o código ainda não carregou */
+        }
+        .user-list-container {
+            max-height: 180px;
+            overflow-y: auto;
+            border: 1px solid #e0c3fc;
+            border-radius: 8px;
+            padding: 10px; /* Espaço interno para os itens da lista */
+            background-color: rgba(248, 249, 250, 0.8);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        #user-list {
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+        #user-list .list-group-item {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #d4aFF7;
+            color: #493e6a;
+            font-weight: 500;
+            padding: 0.75rem 0.5rem; /* Padding ajustado para acomodar o botão */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #user-list .list-group-item:last-child {
+            border-bottom: none;
+        }
+        /* Estilo para o botão de deletar usuário */
+        .delete-user-btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.9rem;
+            line-height: 1;
+            color: #dc3545; /* Vermelho Bootstrap para perigo */
+            background-color: transparent;
+            border: none;
+        }
+        .delete-user-btn:hover, .delete-user-btn:focus {
+            color: #a71d2a; /* Vermelho mais escuro */
+            background-color: rgba(220, 53, 69, 0.1); /* Fundo sutil no hover/focus */
+            outline: none; /* Remove outline padrão do browser no focus */
+            box-shadow: none; /* Remove shadow padrão do Bootstrap no focus */
+        }
+        /* Estilo especial para o primeiro usuário (host) na lista */
+        #user-list .list-group-item.host-user {
+            background-color: rgba(240, 232, 249, 0.7); /* Lilás bem claro para o host */
+            font-weight: bold;
+        }
+
+
+        .btn-start-session {
+            padding: 12px 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            border-radius: 8px;
+            background-color: #7324bf;
+            border-color: #7324bf;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            width: 100%;
+        }
+        .btn-start-session:hover {
+            background-color: #5a1d9a;
+            border-color: #5a1d9a;
+        }
+    </style>
 </head>
 <body>
-    <form id="Start_lobby" autocomplete="off">
-        <div class="container">
-            <img src="../assets/img/heart_home.svg" alt="">
-            <h1>Codigo da sua sessão</h1>
-            <h3></h3>
-            <div class="container-lista">
-                <ul id="user-list">
+    <div class="lobby-container">
+        <img src="../assets/img/heart_home.svg" alt="Logo CineMatch" class="logo-img">
+        <h1>Código da sua sessão</h1>
+        <h3 class="session-code-display" id="sessionCodeDisplay">CARREGANDO...</h3>
+        <h5 class="mt-4 mb-2" style="color: #58458c;">Jogadores na sessão:</h5>
+        <div class="user-list-container">
+            <ul id="user-list" class="list-group">
                 </ul>
-            </div>
-            <button type="submit">Comessar sessão</button>
         </div>
-    </form>
-</body>
-<script src="../assets/js/web_socket_lobby.js"></script>
+        <form id="Start_lobby" autocomplete="off">
+            <button type="submit" class="btn btn-primary btn-start-session">Começar Sessão</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="../assets/js/web_socket_lobby.js"></script>
+    </body>
 </html>

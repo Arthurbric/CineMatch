@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +10,95 @@
 	<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
 	<title>Tinder</title>
 </head>
+<style>
+	html,
+	body {
+		border-radius: 22px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		/* Gradiente animado como fundo */
+		background: linear-gradient(135deg, #d4aFF7, #f3c2e0, #a8b5f0);
+		/* Tons de lilás, rosa suave e azul lavanda */
+		background-size: 400% 400%;
+		/* Importante para a animação cobrir mais área */
+		animation: gradientAnimation 18s ease infinite;
+		/* Duração, tipo de animação e repetição */
+	}
+
+	
+
+	/* Animação do gradiente */
+	@keyframes gradientAnimation {
+		0% {
+			background-position: 0% 50%;
+		}
+
+		50% {
+			background-position: 100% 50%;
+		}
+
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+
+	.form-container {
+		width: 100%;
+		max-width: 420px;
+		/* Largura máxima do formulário */
+		padding: 35px;
+		background-color: rgba(255, 255, 255, 0.9);
+		/* Fundo branco levemente transparente */
+		border-radius: 22px;
+		/* Bordas mais arredondadas */
+		box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+		/* Sombra um pouco mais pronunciada */
+	}
+
+	.logo-img {
+		max-height: 60px;
+		margin-bottom: 25px;
+	}
+
+	.form-container h1 {
+		font-weight: 700;
+		color: #3c325c;
+		/* Um tom de roxo escuro para o título */
+		margin-bottom: 30px;
+	}
+
+	.form-control {
+		border-radius: 8px;
+		padding: 12px 15px;
+	}
+
+	.form-control:focus {
+		border-color: #8A2BE2;
+		/* Roxo mais vibrante no foco */
+		box-shadow: 0 0 0 0.25rem rgba(138, 43, 226, 0.25);
+	}
+
+	.btn-criar {
+		/* Classe específica para o botão de criar */
+		padding: 12px 0;
+		font-size: 1.1rem;
+		font-weight: 600;
+		border-radius: 8px;
+		background-color: #8A2BE2;
+		/* Cor roxa (BlueViolet) para o botão */
+		border-color: #8A2BE2;
+		transition: background-color 0.3s ease, border-color 0.3s ease;
+	}
+
+	.btn-criar:hover {
+		background-color: #7324bf;
+		/* Roxo um pouco mais escuro no hover */
+		border-color: #7324bf;
+	}
+</style>
 
 <body>
 	<!-- TELA DE LOADING -->
@@ -26,9 +116,9 @@
 		<nav class="navbar">
 			<img src="../assets/img/heart_home.svg" alt="logo" />
 			<form class="action-form" id="action_logout">
-			<button class="action" id="logout">
-				<i class="fa-solid fa-right-from-bracket"></i>
-			</button>
+				<button class="action" id="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+				</button>
 			</form>
 		</nav>
 
@@ -40,7 +130,8 @@
 						<h2></h2>
 						<h2></h2>
 						<div class="photo-bio">
-							<a href="TMDB_URL"><i class="fa-solid fa-circle-info" style="color: #f6f6f6;"></i></a>
+							<a href="TMDB_URL"><i class="fa-solid fa-circle-info"
+									style="color: #f6f6f6;"></i></a>
 						</div>
 					</div>
 					<div class="notas">
@@ -57,7 +148,8 @@
 					<span class="loading_button" style="display: none;"></span>
 				</form>
 				<form class="action-form" id="action_neutral">
-					<button class="action_neutral" type="submit" id="neutral"><i class="fa-solid fa-eye"></i></button>
+					<button class="action_neutral" type="submit" id="neutral"><i
+							class="fa-solid fa-eye"></i></button>
 					<span class="loading_button" style="display: none;"></span>
 				</form>
 				<form class="action-form" id="action_like">
@@ -70,4 +162,5 @@
 
 	<script src="../assets/js/like.js"></script>
 </body>
+
 </html>

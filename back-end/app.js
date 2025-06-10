@@ -155,6 +155,70 @@ io.on('connection', (socket) => {
 
   });
 
+  socket.on('request_remove_user', async ({ token, usernameToRemove }) => {
+    if (!token || !usernameToRemove) return;
+  
+    try {
+      const db = await connectToDatabase();
+      const collection = db.collection(process.env.session_table);
+  
+      const sessionDoc = await collection.findOne({
+        session: { $regex: `"token":"${token}"` }
+      });
+  
+      if (!sessionDoc) {
+        socket.emit('session_error', { message: 'Sessão não encontrada.' });
+        return;
+      }
+  
+      const sessionObj = JSON.parse(sessionDoc.session);
+  
+      // Verifica se o usuário existe na sessão
+      const userExists = Object.values(sessionObj.lobby.users).includes(usernameToRemove);
+      if (!userExists) {
+        socket.emit('session_error', { message: 'Usuário não encontrado na sessão.' });
+        return;
+      }
+  
+      // Remove o usuário da sessão
+      const updatedUsers = {};
+      for (const [key, value] of Object.entries(sessionObj.lobby.users)) {
+        if (value !== usernameToRemove) {
+          updatedUsers[key] = value;
+        }
+      }
+  
+      sessionObj.lobby.users = updatedUsers;
+      sessionObj.lobby.qtdusers = Object.keys(updatedUsers).length;
+  
+      // Salva de volta no banco
+      await collection.updateOne(
+        { _id: sessionDoc._id },
+        { $set: { session: JSON.stringify(sessionObj) } }
+      );
+  
+      // Atualiza todos na sala sobre a remoção
+      io.to(token).emit('user_removed', { username: usernameToRemove });
+      io.to(token).emit('session_users', { users: Object.values(updatedUsers) });
+  
+      console.log(`Usuário "${usernameToRemove}" removido da sessão "${token}"`);
+  
+      // Opcional: desconectar o socket do usuário removido (se desejar)
+      if (sessionSockets.has(token)) {
+        for (const sock of sessionSockets.get(token)) {
+          if (sock.username === usernameToRemove) {
+            sock.leave(token);
+            sock.disconnect();
+          }
+        }
+      }
+  
+    } catch (error) {
+      console.error('Erro ao remover usuário:', error);
+      socket.emit('session_error', { message: 'Erro ao remover usuário.' });
+    }
+  });  
+
   socket.on('disconnect', () => {
     for (const [token, sockets] of sessionSockets) {
       sockets.delete(socket);
@@ -166,5 +230,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, '0.0.0.0', () => {
-  console.log(`Servidor da API rodando em http://177.235.191.39:${port}`);
+  console.log(`Servidor da API rodando em http://localhost:${port}`);
 });

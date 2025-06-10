@@ -8,7 +8,7 @@ const collectionName = process.env.session_table;
 
 // GET: cria sessão com usuário
 router.get('/get_session', async (req, res) => {
-  const response = await axios.get('http://177.235.191.39:3535/movie');
+  const response = await axios.get('http://localhost:3535/movie');
   const titulo_movie = response.data.title;
   const sessionToken = titulo_movie.normalize("NFD")
   .replace(/[\u0300-\u036f]/g, '')

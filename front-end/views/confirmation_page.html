@@ -6,31 +6,81 @@
   <title>CineMatch - Resumo Final</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/confirmation_page.css">
   <style>
-    body {
-      background: linear-gradient(to right, #c9c9c9, #f2f2f2);
-      color: #333;
-      font-family: 'Segoe UI', sans-serif;
+    html {
+      min-height: 100vh; /* Garante que o gradiente cubra toda a altura */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Gradiente animado como fundo */
+      background: linear-gradient(135deg, #d4aFF7, #f3c2e0, #a8b5f0); /* Tons de lilás, rosa suave e azul lavanda */
+      background-size: 400% 400%;
+      animation: gradientAnimation 18s ease infinite;
+      padding: 20px; /* Adiciona um pouco de padding geral */
+      color: #333; /* Cor base do texto */
     }
 
-    .card-final {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 30px;
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    body{
       border-radius: 20px;
-      margin-top: 60px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .card-final {
+      background-color: rgba(255, 255, 255, 0.92); /* Levemente mais opaco para melhor leitura */
+      padding: 35px;
+      border-radius: 20px;
+      /* margin-top: 60px; Removido, pois o flex do body centraliza */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      max-width: 600px; /* Largura máxima para o card */
+      width: 100%; /* Para responsividade */
+    }
+
+    .card-final h2 {
+        color: #3c325c; /* Tom de roxo escuro para o título principal */
+        font-weight: 700;
     }
 
     .resumo-box {
-      background-color: #f8f9fa;
-      padding: 20px;
+      background-color: #f8f9fae0; /* Fundo da caixa de resumo um pouco transparente */
+      padding: 25px;
       border-radius: 15px;
-      margin-top: 20px;
+      margin-top: 25px;
+      border: 1px solid #e9ecef; /* Borda sutil */
     }
 
-    .next-btn {
-      margin-top: 30px;
+    .resumo-box p {
+        font-size: 1.05rem; /* Tamanho da fonte do resumo */
+        margin-bottom: 12px; /* Espaçamento entre os itens do resumo */
+    }
+    .resumo-box strong {
+        color: #58458c; /* Cor roxa para os títulos dos itens */
+    }
+
+    .btn-comecar { /* Nova classe para o botão, substituindo btn-success */
+      margin-top: 35px;
+      padding: 12px 30px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      background-color: #8A2BE2; /* Roxo (BlueViolet) */
+      border-color: #8A2BE2;
+      color: white;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-comecar:hover {
+      background-color: #7324bf; /* Roxo um pouco mais escuro no hover */
+      border-color: #7324bf;
+      color: white;
     }
   </style>
 </head>
@@ -39,23 +89,23 @@
   <div class="container text-center">
     <div class="card-final">
       <h2 class="mb-4">🎉 Tudo pronto!</h2>
-      <p>Veja abaixo seu perfil de cinéfilo:</p>
+      <p class="lead mb-4">Veja abaixo seu perfil de cinéfilo:</p>
 
-      <div class="resumo-box text-start mx-auto" style="max-width: 500px;">
-        <p><strong>🎬 Gêneros escolhidos:</strong> <span id="generos">Comédia, Ação, Romance</span></p>
-        <p><strong>🌎 Nacionalidade preferida:</strong> <span id="nacionalidade">Tanto faz</span></p>
-        <p><strong>📆 Ano dos filmes:</strong> <span id="ano">Mais recentes (após 2010)</span></p>
-        <p><strong>📊 Preferência de popularidade:</strong> <span id="popularidade">Notas altas / populares</span></p>
+      <div class="resumo-box text-start mx-auto">
+        <p><strong>🎬 Gêneros escolhidos:</strong> <span id="generos">Carregando...</span></p>
+        <p><strong>🌎 Nacionalidade preferida:</strong> <span id="nacionalidade">Carregando...</span></p>
+        <p><strong>📆 Ano dos filmes:</strong> <span id="ano">Carregando...</span></p>
+        <p><strong>📊 Preferência de popularidade:</strong> <span id="popularidade">Carregando...</span></p>
       </div>
 
-      <button class="btn btn-success next-btn" onclick="irParaSwipe()">🚀 Começar a curtir filmes!</button>
+      <button class="btn btn-lg btn-comecar next-btn" onclick="irParaSwipe()">🚀 Começar a curtir filmes!</button>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
-    // Aqui você pode puxar os dados do localStorage se quiser manter entre páginas
     function irParaSwipe() {
-      window.location.href = 'movie-swipe.html'; // redireciona para a próxima etapa
+      window.location.href = 'movie-swipe.html'; 
     }
   </script>
 </body>

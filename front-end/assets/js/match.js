@@ -8,7 +8,7 @@ async function carregarFilme() {
     const conteudo = document.getElementById('conteudo');
     try {
         // Chama a API para obter os detalhes do filme
-        const resposta = await fetch(`http://localhost:3535/movie_match?movie_id=${movie_id}`);
+        const resposta = await fetch(`/api/movie_match?movie_id=${movie_id}`);
         if (!resposta.ok) {
             throw new Error(`Status: ${resposta.status}`);
         }
@@ -26,7 +26,7 @@ async function carregarFilme() {
         // Verifica se o array de providers não está vazio
         if (filme.providers && filme.providers.length > 0) {
             // Chama a nova API para obter os links de streaming
-            const streamingLinksRes = await fetch(`http://localhost:3535/movie_streaming_links?movie_id=${movie_id}`);
+            const streamingLinksRes = await fetch(`/api/movie_streaming_links?movie_id=${movie_id}`);
             if (!streamingLinksRes.ok) {
                 throw new Error(`Status: ${streamingLinksRes.status}`);
             }

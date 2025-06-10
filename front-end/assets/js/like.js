@@ -9,8 +9,8 @@ let movie_ids = [];
 let list_movies = null;
 
 // Cria a conexão WebSocket
-const socket = io('ws://localhost:3535', {
-  transports: ['websocket']
+const socket = io("/api", {
+  transports: ["websocket"],
 });
 
 socket.on('connect', () => {
@@ -90,9 +90,9 @@ async function carregarFilme() {
     let resposta;
 
     if (list_gener == null) {
-      resposta = await fetch('http://localhost:3535/movie');
+      resposta = await fetch('/api/movie');
     } else {
-      let api_url = 'http://localhost:3535/movie?genre=' + list_gener.join(',');
+      let api_url = "/api/movie?genre=" + list_gener.join(",");
       if (list_dislike_gener != null) {
         api_url += `&exclude_genre=${list_dislike_gener.join(',')}`;
       }

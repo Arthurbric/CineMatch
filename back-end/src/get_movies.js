@@ -102,7 +102,6 @@ router.get('/movie', async (req, res) => {
       id: randomMovie.id,
       title: randomMovie.title,
       poster: `https://image.tmdb.org/t/p/w500${randomMovie.poster_path}`,
-      background: `https://image.tmdb.org/t/p/w500${randomMovie.backdrop_path}`,
       genres: genre_list,
       year: randomMovie.release_date?.split("-")[0] || "N/A",
       rating: randomMovie.vote_average,
@@ -182,19 +181,19 @@ router.get('/movie_match', async (req, res) => {
         return g;
       }
     });
-
     res.json({
       id: movie.id,
       title: movie.title,
       poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      background: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
       genres: genre_list,
-      year: movie.release_date?.split('-')[0] || 'N/A',
+      year: movie.release_date?.split("-")[0] || "N/A",
       rating: movie.vote_average,
       tmdb_url: `https://www.themoviedb.org/movie/${movie.id}`,
-      providers: providers.map(p => ({
+      providers: providers.map((p) => ({
         name: p.provider_name,
-        logo: `https://image.tmdb.org/t/p/w45${p.logo_path}`
-      }))
+        logo: `https://image.tmdb.org/t/p/w45${p.logo_path}`,
+      })),
     });
 
   } catch (err) {

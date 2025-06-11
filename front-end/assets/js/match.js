@@ -22,7 +22,6 @@ async function carregarFilme() {
         document.querySelector('.photo-bio a').href = filme.tmdb_url;
         document.querySelector('.nota').textContent = 'Nota: ' + filme.rating;
         document.querySelector('.geners').textContent = filme.genres.map(g => g.name).join(', ');
-        document.body.style.backgroundImage = `url('${filme.background}')`;
         
         // Verifica se o array de providers não está vazio
         if (filme.providers && filme.providers.length > 0) {
@@ -38,28 +37,45 @@ async function carregarFilme() {
             container.innerHTML = ''; // Limpa antes de adicionar
 
             // Verifica se existem links de streaming
-            if (streamingLinks.streaming_links && streamingLinks.streaming_links.length > 0) {
-                // Adiciona os links de streaming
-                streamingLinks.streaming_links.forEach((link, index) => {
-                    const aTag = document.createElement('a');
-                    aTag.href = link.link; // Link de streaming
-                    aTag.target = '_blank'; // Abre o link em uma nova aba
+            if (
+              streamingLinks.streaming_links &&
+              streamingLinks.streaming_links.length > 0
+            ) {
+              // Adiciona os links de streaming
+              streamingLinks.streaming_links.forEach((link) => {
+                // Encontra o provedor correspondente pelo nome
+                const provider = filme.providers.find(
+                  (p) =>
+                    p.name.toLowerCase() === link.provider_name.toLowerCase() ||
+                    link.provider_name
+                      .toLowerCase()
+                      .includes(p.name.toLowerCase()) ||
+                    p.name
+                      .toLowerCase()
+                      .includes(link.provider_name.toLowerCase())
+                );
 
-                    const img = document.createElement('img');
-                    img.src = filme.providers[index].logo; // Logo do provedor
-                    img.alt = filme.providers[index].name;
-                    img.title = filme.providers[index].name;
-                    img.className = 'provider_id';
-                    img.style.marginRight = '10px'; // opcional: espaço entre ícones
+                if (provider) {
+                  const aTag = document.createElement("a");
+                  aTag.href = link.link; // Link de streaming
+                  aTag.target = "_blank"; // Abre o link em uma nova aba
 
-                    aTag.appendChild(img); // A imagem fica dentro da tag <a>
-                    container.appendChild(aTag); // Adiciona o link ao container
-                });
+                  const img = document.createElement("img");
+                  img.src = provider.logo; // Logo do provedor correto
+                  img.alt = provider.name;
+                  img.title = provider.name;
+                  img.className = "provider_id";
+                  img.style.marginRight = "10px"; // opcional: espaço entre ícones
+
+                  aTag.appendChild(img); // A imagem fica dentro da tag <a>
+                  container.appendChild(aTag); // Adiciona o link ao container
+                }
+              });
             } else {
-                // Caso não haja links de streaming, exibe uma mensagem
-                const h3 = document.createElement('h3');
-                h3.textContent = 'Sem links de streaming disponíveis.';
-                container.appendChild(h3); // Adiciona a mensagem ao container
+              // Caso não haja links de streaming, exibe uma mensagem
+              const h3 = document.createElement("h3");
+              h3.textContent = "Sem links de streaming disponíveis.";
+              container.appendChild(h3); // Adiciona a mensagem ao container
             }
         } else {
             // Caso não haja provedores, exibe uma mensagem

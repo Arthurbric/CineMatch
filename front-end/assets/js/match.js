@@ -22,6 +22,7 @@ async function carregarFilme() {
         document.querySelector('.photo-bio a').href = filme.tmdb_url;
         document.querySelector('.nota').textContent = 'Nota: ' + filme.rating;
         document.querySelector('.geners').textContent = filme.genres.map(g => g.name).join(', ');
+        document.body.style.backgroundImage = `url('${filme.background}')`;
         
         // Verifica se o array de providers não está vazio
         if (filme.providers && filme.providers.length > 0) {

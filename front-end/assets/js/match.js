@@ -23,8 +23,11 @@ async function carregarFilme() {
       .map((g) => g.name)
       .join(", ");
 
-    // Definir a imagem de fundo com a variável do poster
-    document.body.style.backgroundImage = `url('${filme.background}')`; // Altere a imagem de fundo
+    // Atualiza o fundo da página com a imagem do background retornada pela API
+    document.body.style.backgroundImage = `url('${filme.background}')`; // Usando o 'background' da API
+    document.body.style.backgroundSize = "cover"; // Ajusta para cobrir toda a tela
+    document.body.style.backgroundPosition = "center"; // Centraliza a imagem
+    document.body.style.backgroundRepeat = "no-repeat"; // Impede a repetição da imagem
 
     // Verifica se o array de providers não está vazio
     if (filme.providers && filme.providers.length > 0) {

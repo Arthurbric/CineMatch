@@ -17,20 +17,17 @@ jobs:
 
       # 2. SINCRONIZA o back-end com o servidor, EXCLUINDO arquivos sensíveis
       - name: Sync back-end files via rsync
-        uses: appleboy/rsync-deploy@v1.1.0
+        uses: appleboy/rsync-deploy@v1.0.0
         with:
-          # Segredos SSH
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           
-          # Origem e Destino
-          SOURCE: "back-end/"
-          TARGET: "/home/root-ghz/CineMatch/"
+          source: "back-end/"
+          target: "/home/root-ghz/CineMatch/"
 
-          # Lista de arquivos/pastas a serem ignorados durante a sincronização.
-          # Não serão tocados no servidor.
-          EXCLUDE: |
+          # Lista de arquivos/pastas a serem ignorados
+          exclude: |
             node_modules
             .env
 
@@ -43,7 +40,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "front-end/*"
           target: "/var/www/cinematch/"
-          overwrite: true # Garante que os arquivos do front-end sejam sempre atualizados
+          overwrite: true
 
       # 4. Executa comandos no servidor
       - name: Executing remote commands

@@ -1,0 +1,65 @@
+# Nome do Workflow
+name: Deploy Backend and Frontend to Personal Server
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixa o código do repositório
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. SINCRONIZA o back-end com o servidor, EXCLUINDO arquivos sensíveis
+      - name: Sync back-end files via rsync
+        uses: easingthemes/rsync-deploy@v1.1.0
+        with:
+          # Segredos SSH
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          
+          # Origem e Destino
+          SOURCE: "back-end/"
+          TARGET: "/home/root-ghz/CineMatch/"
+
+          # Lista de arquivos/pastas a serem ignorados durante a sincronização.
+          # Não serão tocados no servidor.
+          EXCLUDE: |
+            node_modules
+            .env
+
+      # 3. Copia o CONTEÚDO da pasta do front-end
+      - name: Copy front-end files via scp
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "front-end/*"
+          target: "/var/www/cinematch/"
+          overwrite: true # Garante que os arquivos do front-end sejam sempre atualizados
+
+      # 4. Executa comandos no servidor
+      - name: Executing remote commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Comandos para o Back-end
+            echo "--- Deploying Back-end ---"
+            cd /home/root-ghz/CineMatch/back-end
+            npm install
+
+            echo "--- Deploying Front-end ---"
+            cd /var/www/cinematch
+            echo "Front-end files updated."
+
+            echo "--- Deploy finished successfully! ---"

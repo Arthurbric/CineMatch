@@ -15,7 +15,7 @@ Além da funcionalidade divertida, o projeto se encaixa como um estudo de **Sist
 - Guilherme Fernandes Paes
 - Guilherme Cláudio Marques La
 - Lucas Catem Vianna
-
+- Henrique Furtado Gouvêa Pedrinha Carlos
 
 
 ---
